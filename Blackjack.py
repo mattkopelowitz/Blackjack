@@ -77,10 +77,10 @@ def main():
     gameNum = 1
     
     print("Welcome To BlackJack!")
-    print("Game #" + gameNum)
+    print("Game #" + str(gameNum))
     
     playAgain = True
     while playAgain:
-        
+        break
 
 main()
