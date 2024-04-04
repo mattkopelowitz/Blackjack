@@ -1,76 +1,39 @@
 import random
 
-class Card:
-    value = 0
-    name = ""
-    
-    def getValue():
-        return self.value
+def getCardName(cardValue):
+    cardNames = {
+        1: "Ace",
+        11: "Jack",
+        12: "Queen",
+        13: "King",
+    }
+    return cardNames.get(cardValue, str(cardValue))
 
-    def getName():
-        return self.name
+def dealCard(handValue, handName):
+    cardValue = random.choice([1,2,3,4,5,6,7,8,9,10])
+    if cardValue == 10:
+        faceValue = random.choice([11, 12, 13])
+        cardName = getCardName(faceValue)
+    else:
+        cardName = getCardName(cardValue)
     
+    if handName == "Player":
+        print("You are dealt a " + cardName)
+    handValue += cardValue
+    return handValue
 
 def runGame():
-    handValue = 0
+    playerValue = 0
     dealerValue = 0
 
-    cardValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    faceCards = [1, 2, 3]
+    playerValue = dealCard(playerValue, "Player")
+    playerValue = dealCard(playerValue, "Player")
+
+    dealerValue = dealCard(dealerValue, "Dealer")
+    dealerValue = dealCard(dealerValue, "Dealer")
     
-    cardValue1 = random.choice(cardValues)
-    if cardValue1 == 10:
-        cardType = random.choice(faceCards)
-        if cardType == 1:
-            print("You are dealt a: Jack" )
-        elif cardType == 2:
-            print("You are dealt a: Queen")
-        elif cardType == 3:
-            print("You are dealt a: King")
-    elif cardValue1 == 1:
-        print("You are dealt an: Ace")
-    else:
-        print("You are dealt a: " + cardValue1)
-
-    handValue += cardValue1
-
-    cardValue2 = random.choice(cardValues)
-    if cardValue2 == 10:
-        cardType = random.choice(faceCards)
-        if cardType == 1:
-            print("You are dealt a: Jack" )
-        elif cardType == 2:
-            print("You are dealt a: Queen")
-        elif cardType == 3:
-            print("You are dealt a: King")
-    elif cardValue2 == 1:
-        print("You are dealt an: Ace")
-    else:
-        print("You are dealt a: " + cardValue2)
-
-    handValue += cardValue2
-
-    print("Your total hand value is: " + handValue)
-    
-    dealerCard1 = random.choice(cardValues)
-    dealerValue += dealerCard1
-    
-    dealerCard2 = random.choice(cardValues)
-    if dealerCard2 == 10:
-        dealerCardType = random.choice(faceCards)
-        if dealerCardType == 1:
-            print("The dealer has a Jack showing")
-        elif dealerCardType == 2:
-            print("The dealer has a Queen showing")
-        elif dealerCardType == 3:
-            print("The dealer has a King showing")
-    elif dealerCard2 == 1:
-        print("The dealer has an Ace showing")
-    else:
-        print("The dealer has a " + dealerCard2 + " showing")
-
-    dealerValue += dealerCard2
-
+    print("Your total hand value is: " + str(playerValue))
+    print("The dealer has a " + getCardName(dealerValue) + " showing")
     
 
 def main():
@@ -81,6 +44,20 @@ def main():
     
     playAgain = True
     while playAgain:
-        break
+        runGame()
+        validResponse = False
+        while not validResponse:
+            response = input("Would you like to play again? (y/n): ")
+            if response == "y":
+                playAgain = True
+                validResponse = True
+                gameNum += 1
+                print("Game #" + str(gameNum))
+            elif response == "n":
+                playAgain = False
+                validResponse = True
+            else:
+                print("That is not a valid response.")
+        
 
 main()
