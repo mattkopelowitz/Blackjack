@@ -1,5 +1,6 @@
 import random
 
+# Takes in the card value and returns the name of the card
 def getCardName(cardValue):
     cardNames = {
         1: "Ace",
@@ -9,6 +10,8 @@ def getCardName(cardValue):
     }
     return cardNames.get(cardValue, str(cardValue))
 
+# Takes in the current value of player/dealer's hand and which person's hand it is, 
+# and deals them a new card returning the new value of their hand
 def dealCard(handValue, handName):
     cardValue = random.choice([1,2,3,4,5,6,7,8,9,10])
     if cardValue == 10:
@@ -22,6 +25,7 @@ def dealCard(handValue, handName):
     handValue += cardValue
     return handValue
 
+# This function runs a single game
 def runGame():
     playerValue = 0
     dealerValue = 0
@@ -30,30 +34,47 @@ def runGame():
     playerValue = dealCard(playerValue, "Player")
 
     dealerValue = dealCard(dealerValue, "Dealer")
-    dealerValue = dealCard(dealerValue, "Dealer")
-    
     print("Your total hand value is: " + str(playerValue) + "\n")
     print("The dealer has a " + getCardName(dealerValue) + " showing\n")
-
+    dealerValue = dealCard(dealerValue, "Dealer")
+    
     midGameMenu(playerValue, dealerValue)
 
+# This function handles the midgame where the player must make choices
 def midGameMenu(handVal, dealerVal):
     choice = 0
     while choice != 1 and choice != 2: 
+        if choice != 0:
+            print("That is not a valid choice")
         choice = input("What do you do? Type a number(1/2):\n1. Hit\n2. Stay\nChoice: ")
         choice = int(choice)
-    if choice == 1:
-        pass
-    if choice == 2:
-        print("\nThe dealer reveals a total hand value of: " + str(dealerVal) + "\n")
-        if dealerVal > handVal:
-            print("The dealer is closer to 21, YOU LOSE")
-        elif dealerVal < handVal:
-            print("You are closer to 21, YOU WIN")
-        elif dealerVal == handVal:
-            print("You and the dealer PUSH")
+        print("\n")
 
-    
+    if choice == 1:
+        handVal = dealCard(handVal, "Player")
+        print("Your new total hand value is " + str(handVal) + "\n")
+        if handVal > 21:
+            print("\nYou busted, YOU LOSE")
+        elif handVal == 21:
+            print("BLACKJACK, YOU WIN")
+        else:
+            midGameMenu(handVal, dealerVal) # recursion allows the player to keep hitting until they want to stop or bust
+    elif choice == 2:
+        print("\nThe dealer reveals a total hand value of: " + str(dealerVal) + "\n")
+
+        while dealerVal <= 16:
+            dealerVal =  dealCard(dealerVal, "Dealer")
+            print("The dealer hits and now has a hand value of: " + str(dealerVal) + "\n")
+
+        if dealerVal > 21:
+            print("\nThe dealer busted, YOU WIN")
+        else:
+            if dealerVal > handVal:
+                print("The dealer is closer to 21, YOU LOSE")
+            elif dealerVal < handVal:
+                print("You are closer to 21, YOU WIN")
+            elif dealerVal == handVal:
+                print("You and the dealer PUSH")
 
 def main():
     gameNum = 1
