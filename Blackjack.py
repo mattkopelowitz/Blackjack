@@ -78,12 +78,23 @@ def midGameMenu(handVal, dealerVal):
 
 def main():
     gameNum = 1
+    balance = 0
+    bet = 0
     
     print("Welcome To BlackJack!\n")
+    balance = int(input("What bankroll would you like to deposit? $"))
+    while type(balance) != int or balance < 0:
+        balance = int(input("Please enter a valid number. $"))
+    
+    print("\nBalance: $" + str(balance) + "\n")
     print("Game #" + str(gameNum) + "\n")
     
     playAgain = True
     while playAgain:
+        bet = int(input("How much would you like to bet on this game? $"))
+        while type(bet) != int or bet < 0 or bet > balance:
+            bet = int(input("Please enter a valid number. $"))
+
         runGame()
         validResponse = False
         while not validResponse:
