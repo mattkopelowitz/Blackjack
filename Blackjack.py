@@ -38,7 +38,7 @@ def runGame():
     print("The dealer has a " + getCardName(dealerValue) + " showing\n")
     dealerValue = dealCard(dealerValue, "Dealer")
     
-    midGameMenu(playerValue, dealerValue)
+    return midGameMenu(playerValue, dealerValue)
 
 # This function handles the midgame where the player must make choices
 def midGameMenu(handVal, dealerVal):
@@ -55,10 +55,12 @@ def midGameMenu(handVal, dealerVal):
         print("Your new total hand value is " + str(handVal) + "\n")
         if handVal > 21:
             print("\nYou busted, YOU LOSE")
+            return "Loss"
         elif handVal == 21:
             print("BLACKJACK, YOU WIN")
+            return "Win"
         else:
-            midGameMenu(handVal, dealerVal) # recursion allows the player to keep hitting until they want to stop or bust
+            return midGameMenu(handVal, dealerVal) # recursion allows the player to keep hitting until they want to stop or bust
     elif choice == 2:
         print("\nThe dealer reveals a total hand value of: " + str(dealerVal) + "\n")
 
@@ -68,13 +70,17 @@ def midGameMenu(handVal, dealerVal):
 
         if dealerVal > 21:
             print("\nThe dealer busted, YOU WIN")
+            return "Win"
         else:
             if dealerVal > handVal:
                 print("The dealer is closer to 21, YOU LOSE")
+                return "Loss"
             elif dealerVal < handVal:
                 print("You are closer to 21, YOU WIN")
+                return "Win"
             elif dealerVal == handVal:
                 print("You and the dealer PUSH")
+                return "Tie"
 
 def main():
     gameNum = 1
@@ -91,11 +97,24 @@ def main():
     
     playAgain = True
     while playAgain:
+        if balance <= 0:
+            print("Looks like your balance is at $0, Thanks for playing!")
+            break
+
         bet = int(input("How much would you like to bet on this game? $"))
-        while type(bet) != int or bet < 0 or bet > balance:
+        while type(bet) != int or bet <= 0 or bet > balance:
             bet = int(input("Please enter a valid number. $"))
 
-        runGame()
+        balance -= bet
+        result = runGame()
+
+        if result == "Win":
+            balance += (bet*2)
+        elif result == "Loss":
+            pass
+        elif result == "Tie":
+            balance += bet
+        
         validResponse = False
         while not validResponse:
             response = input("\nWould you like to play again? (y/n): ")
@@ -104,9 +123,10 @@ def main():
                 playAgain = True
                 validResponse = True
                 gameNum += 1
+                print("\nBalance: $" + str(balance) + "\n")
                 print("Game #" + str(gameNum))
             elif response == "n":
-                print("\nThanks for playing!")
+                print("\nThanks for playing! You're ending balance is: $" + str(balance))
                 playAgain = False
                 validResponse = True
             else:
