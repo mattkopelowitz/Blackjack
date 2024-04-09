@@ -83,6 +83,7 @@ def midGameMenu(handVal, dealerVal):
                 return "Tie"
 
 def main():
+    # initial variables for keeping track of game number, total balance, and each game's bet amount
     gameNum = 1
     balance = 0
     bet = 0
