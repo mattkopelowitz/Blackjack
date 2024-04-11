@@ -88,6 +88,7 @@ def main():
     balance = 0
     bet = 0
     
+    # Welcome message and determines balance
     print("Welcome To BlackJack!\n")
     balance = int(input("What bankroll would you like to deposit? $"))
     while type(balance) != int or balance < 0:
