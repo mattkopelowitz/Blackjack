@@ -97,6 +97,7 @@ def main():
     print("\nBalance: $" + str(balance) + "\n")
     print("Game #" + str(gameNum) + "\n")
     
+    # Loop through games while player wants to keep playing or runs out of money
     playAgain = True
     while playAgain:
         if balance <= 0:
