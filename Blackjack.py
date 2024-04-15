@@ -100,6 +100,7 @@ def main():
     # Loop through games while player wants to keep playing or runs out of money
     playAgain = True
     while playAgain:
+        # Checks to see if the player still has money in their balance
         if balance <= 0:
             print("Looks like your balance is at $0, Thanks for playing!")
             break
