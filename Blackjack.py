@@ -104,7 +104,8 @@ def main():
         if balance <= 0:
             print("Looks like your balance is at $0, Thanks for playing!")
             break
-
+        
+        # Asks the player for how much they want to bet on this hand and makes sure it isnt more than what they have in their balance
         bet = int(input("How much would you like to bet on this game? $"))
         while type(bet) != int or bet <= 0 or bet > balance:
             bet = int(input("Please enter a valid number. $"))
