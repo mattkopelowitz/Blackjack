@@ -110,6 +110,7 @@ def main():
         while type(bet) != int or bet <= 0 or bet > balance:
             bet = int(input("Please enter a valid number. $"))
 
+        # Subtracts the hand's bet amount from the player's balance
         balance -= bet
         result = runGame()
 
