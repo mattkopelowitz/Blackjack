@@ -38,7 +38,7 @@ def runGame():
     print("The dealer has a " + getCardName(dealerValue) + " showing\n")
     dealerValue = dealCard(dealerValue, "Dealer")
     
-    return midGameMenu(playerValue, dealerValue)
+    return midGameMenu(playerValue, dealerValue) # Returns the result of the game
 
 # This function handles the midgame where the player must make choices
 def midGameMenu(handVal, dealerVal):
