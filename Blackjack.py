@@ -50,6 +50,7 @@ def midGameMenu(handVal, dealerVal):
         choice = int(choice)
         print("\n")
 
+    # Player Hits
     if choice == 1:
         handVal = dealCard(handVal, "Player")
         print("Your new total hand value is " + str(handVal) + "\n")
