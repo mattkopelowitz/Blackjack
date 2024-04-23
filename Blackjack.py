@@ -62,6 +62,8 @@ def midGameMenu(handVal, dealerVal):
             return "Win"
         else:
             return midGameMenu(handVal, dealerVal) # recursion allows the player to keep hitting until they want to stop or bust
+    
+    # Player Stays
     elif choice == 2:
         print("\nThe dealer reveals a total hand value of: " + str(dealerVal) + "\n")
 
