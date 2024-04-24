@@ -117,6 +117,7 @@ def main():
         balance -= bet
         result = runGame()
 
+        # Determine hand result
         if result == "Win":
             balance += (bet*2)
         elif result == "Loss":
