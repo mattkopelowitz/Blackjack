@@ -125,6 +125,7 @@ def main():
         elif result == "Tie":
             balance += bet
         
+        # Continues the game
         validResponse = False
         while not validResponse:
             response = input("\nWould you like to play again? (y/n): ")
