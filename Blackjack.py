@@ -129,7 +129,7 @@ def main():
         validResponse = False
         while not validResponse:
             response = input("\nWould you like to play again? (y/n): ")
-            if response == "y":
+            if response == "y": # Player wants to play again
                 print("\n")
                 playAgain = True
                 validResponse = True
